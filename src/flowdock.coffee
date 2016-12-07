@@ -2,7 +2,7 @@ url = require 'url'
 events = require 'events'
 request = require 'request'
 Stream = require './stream'
-EventEmitter = require 'events'
+EventEmitter = process.EventEmitter || require 'events'
 
 extend = (objects...) ->
   result = {}
