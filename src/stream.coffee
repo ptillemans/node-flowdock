@@ -1,6 +1,7 @@
 url = require 'url'
 request = require 'request'
 JSONStream = require './json_stream'
+EventEmitter = require 'events'
 
 baseURL = ->
   url.parse(process.env.FLOWDOCK_STREAM_URL || 'https://stream.flowdock.com/flows')
@@ -14,8 +15,9 @@ backoff = (backoff, errors, operator = '*') ->
       Math.pow 2, errors - 1) * backoff.delay
   )
 
-class Stream extends process.EventEmitter
+class Stream extends EventEmitter
   constructor: (@auth, @flows, @params = {}) ->
+    console.log(typeof __super__)
     @networkErrors = 0
     @responseErrors = 0
     @on 'reconnecting', (timeout) =>

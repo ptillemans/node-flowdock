@@ -2,6 +2,7 @@ url = require 'url'
 events = require 'events'
 request = require 'request'
 Stream = require './stream'
+EventEmitter = require 'events'
 
 extend = (objects...) ->
   result = {}
@@ -10,7 +11,7 @@ extend = (objects...) ->
       result[key] = value
   result
 
-class Session extends process.EventEmitter
+class Session extends EventEmitter
 
   constructor: (@email, @password, @url = process.env.FLOWDOCK_API_URL || 'https://api.flowdock.com') ->
     @auth = 'Basic ' + new Buffer(@email + ':' + @password).toString('base64')
